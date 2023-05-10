@@ -1,19 +1,18 @@
 pipeline {
     agent {
         node {
-            label 'docker-agent-java'
+            label 'docker-cloud-agent-java'
         }
     }
     triggers {
-        pollSCM '* * * * *'
+        pollSCM '*/2 * * * *'
     }
     stages {
         stage('Build') {
             steps {
                 echo "Building.."
                 sh '''
-                cd myapp
-                pip install -r requirements.txt
+                ./gradlew clean build
                 '''
             }
         }
@@ -22,8 +21,7 @@ pipeline {
                 echo "Testing.."
                 sh '''
                 cd myapp
-                python3 hello.py
-                python3 hello.py --name=Brad
+                ./gradlew test
                 '''
             }
         }

@@ -8,6 +8,15 @@ pipeline {
         pollSCM '*/2 * * * *'
     }
     stages {
+         stage('Prepare') {
+            steps {
+                script {
+                    sh('chmod u+x gradlew')
+                    sh('java -version')
+                    sh('./gradlew --version')
+                }
+            }
+        }
         stage('Build') {
             steps {
                 echo "Building.."

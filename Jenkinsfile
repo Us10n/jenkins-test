@@ -29,7 +29,6 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                cd myapp
                 ./gradlew test
                 '''
             }
